@@ -1,1 +1,12 @@
-@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+#box-top{
+    padding-top: 150px;
+}
+#box-mid{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#show-message{
+    border: 1px solid black;
+}
