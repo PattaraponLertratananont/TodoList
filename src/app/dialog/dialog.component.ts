@@ -11,17 +11,13 @@ export class DialogComponent {
   constructor(public dialog: MatDialog) { }
 
   openDialog() {
-    const dialogRef = this.dialog.open(DialogContent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.dialog.open(DialogContent);
   }
 
 }
 
 @Component({
   selector: 'dialog-content',
-  templateUrl: 'dialog-content.html',
+  templateUrl: './dialog-content.html',
 })
-export class DialogContent {}
+export class DialogContent { }
