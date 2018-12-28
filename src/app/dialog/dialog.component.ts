@@ -8,9 +8,10 @@ import { MatDialog } from '@angular/material';
 })
 export class DialogComponent {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) { }
 
   openDialog() {
+
     this.dialog.open(DialogContent);
   }
 
