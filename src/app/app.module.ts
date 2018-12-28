@@ -1,16 +1,41 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MomentModule } from 'ngx-moment'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 import { AppComponent } from './app.component';
+import { DialogComponent, DialogContent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DialogComponent,
+    DialogContent,
+    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
+    MatButtonModule,
+    MatInputModule,
+    MomentModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
+  entryComponents:[
+    [DialogComponent,DialogContent]
+  ],
+  exports:[
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

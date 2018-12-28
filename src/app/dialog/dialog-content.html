@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Add To Do List</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="message">
+    <div>
+      <label for="message">Message</label>
+    </div>
+    <mat-form-field style="width:400px;">
+      <textarea matInput placeholder="Message" name="message" id="message" cols="30" rows="2"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="due-date">
+      <div>
+        <label for="due-date">Due Date</label>
+      </div>
+      <mat-form-field style="width:400px;">
+        <input matInput placeholder="dd/mm/yy" [formControl]="date" (keyup.enter)="checkFormat()" required>
+      </mat-form-field>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial="false">Save</button>
+</mat-dialog-actions>
