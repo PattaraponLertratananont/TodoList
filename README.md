@@ -7,3 +7,4 @@ Please install npm and install package(bootstrap, material, ng-bootstrap, hammer
 ## How to
 When you want to install package in npm command
 `npm install <name package>`
+`npm install moment --save`
