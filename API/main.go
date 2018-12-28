@@ -27,7 +27,7 @@ func main() {
 	// Routes
 	e.GET("/", hello)
 	e.GET("/Read", Getdata)
-	e.POST("/Write",)
+	// e.POST("/Write",)
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 	AllowOrigins: []string{"*"},
