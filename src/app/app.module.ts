@@ -6,6 +6,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MomentModule } from 'ngx-moment'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { DialogComponent, DialogContent } from './dialog/dialog.component';
@@ -15,6 +17,7 @@ import { DialogComponent, DialogContent } from './dialog/dialog.component';
     AppComponent,
     DialogComponent,
     DialogContent,
+    
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,10 @@ import { DialogComponent, DialogContent } from './dialog/dialog.component';
     BrowserAnimationsModule,
     NoopAnimationsModule,
     MatButtonModule,
-    MatInputModule, 
+    MatInputModule,
+    MomentModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   entryComponents:[
     [DialogComponent,DialogContent]

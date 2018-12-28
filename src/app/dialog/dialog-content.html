@@ -13,7 +13,7 @@
         <label for="due-date">Due Date</label>
       </div>
       <mat-form-field style="width:400px;">
-        <input matInput placeholder="dd/mm/yy" type="due-date">
+        <input matInput placeholder="dd/mm/yy" [formControl]="date" (keyup.enter)="checkFormat()" required>
       </mat-form-field>
     </div>
 </mat-dialog-content>
