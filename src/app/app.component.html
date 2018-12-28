@@ -15,11 +15,14 @@
       </div>
       <div class="col-md-8" id="show-message">
         <div id="box-message">
-          <p id="message">Message</p>
-          <p id="due-date">33/44/55</p>
+          <div *ngFor="let text of texts;let i=index">
+            <div><p id="message" >Message : {{text.message}}</p></div>
+            <div><p id="date" >Due Date: {{text.date}}</p></div>
+          </div>
         </div>
       </div>
       <div class="col-md-2">
+        <button (click)="showText()">กด</button>
       </div>
     </div>
   </div>

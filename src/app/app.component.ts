@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ConfigService } from './config.service'
+import { Message } from './message'
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Note';
+  texts:Message[]=[]
+  constructor(private config:ConfigService){}
+
+  showText(){
+    this.config.getText()
+    .subscribe(data => this.texts=data)
+  }
 }

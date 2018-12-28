@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MomentModule } from 'ngx-moment'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { DialogComponent, DialogContent } from './dialog/dialog.component';
@@ -17,7 +18,6 @@ import { DialogComponent, DialogContent } from './dialog/dialog.component';
     AppComponent,
     DialogComponent,
     DialogContent,
-    
   ],
   imports: [
     BrowserModule,
@@ -30,6 +30,7 @@ import { DialogComponent, DialogContent } from './dialog/dialog.component';
     MomentModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
   ],
   entryComponents:[
     [DialogComponent,DialogContent]
