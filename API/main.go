@@ -26,8 +26,13 @@ func main() {
 
 	// Routes
 	e.GET("/", hello)
-	e.GET("/test", Getdata)
+	e.GET("/Read", Getdata)
+	e.POST("/Write",)
 
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+	AllowOrigins: []string{"*"},
+	AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	}))
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
 }
