@@ -13,10 +13,15 @@
     <div class="row mx-auto" id="box-mid">
       <div class="col-md-2">
       </div>
-      <div class="col-md-8" id="show-message">
-        <div id="box-message">
-          <p id="message">Message</p>
-          <p id="due-date">33/44/55</p>
+      <div class="col-md-8" id="show-message" style="padding-top:1%; padding-left: 2%; padding-right: 2%;">
+        <div id="box-message" *ngFor="let text of texts;let i=index" style="word-wrap:break-word;">
+          <div>
+            <span id="message">Message : {{text.message}}</span>
+          </div>
+          <span>-----------------------</span>
+          <div>
+            <p id="date">Due Date : {{text.date}}</p>
+          </div>
         </div>
       </div>
       <div class="col-md-2">
