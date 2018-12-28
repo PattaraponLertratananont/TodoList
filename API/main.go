@@ -38,12 +38,12 @@ func main() {
 
 	// Routes
 	e.GET("/", hello)
-	e.GET("/Read", Getdata)
-	// e.POST("/Write",)
+	e.GET("/read", Getdata)
+	e.POST("/write", PostData)
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-	AllowOrigins: []string{"*"},
-	AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+		AllowOrigins: []string{"*"},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
@@ -74,14 +74,25 @@ func PostData(c echo.Context) error {
 	todoLists := []TodoList{}
 	db := ListDb{Lists: todoLists, Type: "Simple"}
 
+	defer c.Request().Body.Close()
+
+	err := json.NewDecoder(c.Request().Body).Decode(&db)
+	if err != nil {
+		log.Printf("Failed processing PostData request %s", err)
+		return echo.NewHTTPError(http.StatusInternalServerError)
+	}
+	//method writeJsonfile
 	buf := new(bytes.Buffer)
 	encoder := json.NewEncoder(buf)
 	encoder.Encode(db)
 
-	file, err := os.Create("todolist.json")
+	file, err := os.Create("message.json")
 	if err != nil {
 		log.Fatalln(err)
 	}
 	defer file.Close()
 	io.Copy(file, buf)
+
+	log.Printf("this's your list: %#v", db)
+	return c.String(http.StatusOK, "We got your list.")
 }
