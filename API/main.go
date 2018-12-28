@@ -15,12 +15,11 @@ import (
 )
 
 type TodoList struct {
-	Name    string `json:"name"`
+	Message    string `json:"message"`
 	Duedate string `json:"duedate"`
 }
 type ListDb struct {
 	Lists []TodoList
-	Type  string
 }
 
 // Handler
@@ -53,7 +52,7 @@ func main() {
 //Method
 func Getdata(c echo.Context) error {
 	// Open our jsonFile
-	jsonFile, err := os.Open("messege.json")
+	jsonFile, err := os.Open("message.json")
 	// if we os.Open returns an error then handle it
 	if err != nil {
 		fmt.Println(err)
@@ -67,12 +66,12 @@ func Getdata(c echo.Context) error {
 	var result map[string]interface{}
 	json.Unmarshal([]byte(byteValue), &result)
 
-	return c.JSON(http.StatusOK, result["MSG"])
+	return c.JSON(http.StatusOK, result["Lists"])
 }
 
 func PostData(c echo.Context) error {
 	todoLists := []TodoList{}
-	db := ListDb{Lists: todoLists, Type: "Simple"}
+	db := ListDb{Lists: todoLists}
 
 	defer c.Request().Body.Close()
 
