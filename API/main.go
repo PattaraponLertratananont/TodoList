@@ -1,7 +1,11 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"net/http"
+	"os"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -22,7 +26,27 @@ func main() {
 
 	// Routes
 	e.GET("/", hello)
+	e.GET("/test", Getdata)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
+}
+
+func Getdata(c echo.Context) error {
+	// Open our jsonFile
+	jsonFile, err := os.Open("messege.json")
+	// if we os.Open returns an error then handle it
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("Successfully Opened users.json")
+	// defer the closing of our jsonFile so that we can parse it later on
+	defer jsonFile.Close()
+
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+
+	var result map[string]interface{}
+	json.Unmarshal([]byte(byteValue), &result)
+
+	return c.JSON(http.StatusOK, result["MSG"])
 }
