@@ -1,25 +1,28 @@
 package main
 
 import (
-	"bytes"
+	"bufio"
 	"encoding/json"
 	"fmt"
-	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )
 
 type TodoList struct {
-	Message    string `json:"message"`
+	Message string `json:"message"`
 	Duedate string `json:"duedate"`
 }
 type ListDb struct {
 	Lists []TodoList
+}
+type List struct {
+	Duedate string
+	Message string
 }
 
 // Handler
@@ -29,6 +32,7 @@ func hello(c echo.Context) error {
 
 // Echo instance
 func main() {
+
 	e := echo.New()
 
 	// Middleware
@@ -38,7 +42,7 @@ func main() {
 	// Routes
 	e.GET("/", hello)
 	e.GET("/read", Getdata)
-	e.POST("/write", PostData)
+	e.POST("/write", PostTest)
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},
@@ -48,50 +52,42 @@ func main() {
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
-//█████████████████████████████████████████████████████████████████
 //Method
-func Getdata(c echo.Context) error {
-	// Open our jsonFile
-	jsonFile, err := os.Open("message.json")
-	// if we os.Open returns an error then handle it
+func PostTest(c echo.Context) error {
+
+	message := `{"Message": "Helsdsdlo","Duedate": "01/01/2029"}`
+	// If the file doesn't exist, create it, or append to the file
+	f, err := os.OpenFile("message.json", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
-	fmt.Println("Successfully Opened users.json")
-	// defer the closing of our jsonFile so that we can parse it later on
-	defer jsonFile.Close()
-
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-
-	var result map[string]interface{}
-	json.Unmarshal([]byte(byteValue), &result)
-
-	return c.JSON(http.StatusOK, result["Lists"])
+	if _, err := f.Write([]byte("," + message)); err != nil {
+		log.Fatal(err)
+	}
+	if err := f.Close(); err != nil {
+		log.Fatal(err)
+	}
+	return c.String(http.StatusOK, "We got your list.")
 }
 
-func PostData(c echo.Context) error {
-	todoLists := []TodoList{}
-	db := ListDb{Lists: todoLists}
+func Getdata(c echo.Context) error {
+	fileHandle, _ := os.Open("message.txt")
+	defer fileHandle.Close()
+	fileScanner := bufio.NewScanner(fileHandle)
+	var data []string
+	for fileScanner.Scan() {
+		txt := fileScanner.Text()
+		data = append(data, txt)
+		fmt.Println("data : " + txt)
 
-	defer c.Request().Body.Close()
-
-	err := json.NewDecoder(c.Request().Body).Decode(&db)
-	if err != nil {
-		log.Printf("Failed processing PostData request %s", err)
-		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
-	//method writeJsonfile
-	buf := new(bytes.Buffer)
-	encoder := json.NewEncoder(buf)
-	encoder.Encode(db)
 
-	file, err := os.Create("message.json")
-	if err != nil {
-		log.Fatalln(err)
-	}
-	defer file.Close()
-	io.Copy(file, buf)
+	bdata := strings.Join(data, ",")
+	//datasJson, _ := json.Marshal(data)
+	fmt.Println("data 2: " + bdata)
 
-	log.Printf("this's your list: %#v", db)
-	return c.String(http.StatusOK, "We got your list.")
+	result := []TodoList{}
+	json.Unmarshal([]byte("["+bdata+"]"), &result)
+
+	return c.JSON(http.StatusOK, result)
 }
