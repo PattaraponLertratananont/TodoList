@@ -47,8 +47,6 @@ func main() {
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
 }
-
-//█████████████████████████████████████████████████████████████████
 //Method
 func Getdata(c echo.Context) error {
 	// Open our jsonFile

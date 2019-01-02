@@ -28,7 +28,6 @@ export class AppComponent implements OnInit {
     .subscribe(data => this.texts=data)
   }
   checkDate(param:any){
-    console.log(param)
     if(this.datenow===param){
       return true;
     }
