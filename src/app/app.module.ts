@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { DialogComponent, DialogContent } from './dialog/dialog.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { DialogComponent, DialogContent } from './dialog/dialog.component';
   exports:[
     MatDialogModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
