@@ -57,11 +57,11 @@ func PostTest(c echo.Context) error {
 
 	message := `{"Message": "Helsdsdlo","Duedate": "01/01/2029"}`
 	// If the file doesn't exist, create it, or append to the file
-	f, err := os.OpenFile("message.json", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	f, err := os.OpenFile("message.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if _, err := f.Write([]byte("," + message)); err != nil {
+	if _, err := f.Write([]byte(message)); err != nil {
 		log.Fatal(err)
 	}
 	if err := f.Close(); err != nil {

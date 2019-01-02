@@ -10,6 +10,6 @@ export class ConfigService {
   constructor(private http:HttpClient) { }
   // localUrl = 'http://localhost:1323/'
   getText():Observable<Message[]>{
-    return this.http.get<Message[]>('http://localhost:1323/Read')
+    return this.http.get<Message[]>('http://localhost:1323/read')
   }
 }
