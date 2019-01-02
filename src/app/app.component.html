@@ -14,14 +14,18 @@
       <div class="col-md-2">
       </div>
       <div class="col-md-8" id="show-message" style="padding-top:1%; padding-left: 2%; padding-right: 2%;">
-        <div id="box-message" *ngFor="let text of texts;let i=index" style="word-wrap:break-word;">
-          <div>
+        <div id="box-message" *ngFor="let text of texts" style="word-wrap:break-word;">
+          <div [ngClass]="{'my-class': checkDate(text.duedate)}">
             <span id="message">Message : {{text.message}}</span>
           </div>
-          <span>-----------------------</span>
           <div>
+<<<<<<< HEAD
             <p id="date">Due Date : {{text.duedate}}</p>
+=======
+              <span id="date">Due Date : {{text.duedate}}</span>
+>>>>>>> 57337fb923377e270a6e5d9d7d46b03168094d28
           </div>
+          <span>-----------------------</span>
         </div>
       </div>
       <div class="col-md-2">
