@@ -72,23 +72,23 @@ func Getdata(c echo.Context) error {
 	//! Openfile message.txt ที่เก็บข้อมูลต่างๆ ไว้
 	fileHandle, err := os.Open("message.txt")
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatalf("Failed open file message.txt: %s", err)
 	}
 	defer fileHandle.Close()
 
 	//! Scanของข้างใน
 	fileScanner := bufio.NewScanner(fileHandle)
-	var data []string
+
 	//! จับของยัดใส่slice data string
+	var dataslice []string
 	for fileScanner.Scan() {
 		txt := fileScanner.Text()
-		data = append(data, txt)
-		log.Fatalln("data : " + txt)
-
+		dataslice = append(dataslice, txt)
+		log.Fatalln("Raw data: " + txt)
 	}
 	//! Unfurl to pure string from slice []string
-	bytedata := strings.Join(data, ",")
-	fmt.Println("data 2: " + bytedata)
+	bytedata := strings.Join(dataslice, ",")
+	fmt.Println("data ready: " + bytedata)
 
 	//! Put result to TodoList struct
 	result := []TodoList{}
