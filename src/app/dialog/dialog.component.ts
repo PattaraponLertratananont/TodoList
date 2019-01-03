@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import * as moment from 'moment'
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DatePipe } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Message } from '../message'
-import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
+import { FormControl, FormBuilder, Validators } from '@angular/forms';
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-dialog',
@@ -29,54 +27,51 @@ export class DialogComponent {
 })
 export class DialogContent {
 
-  addForm = this.fb.group({
-    message : ['',Validators.required],
-    duedate : new FormControl('',Validators.required)
-  })
-  date = new FormControl('');
-  format = [moment.ISO_8601, "DD/MM/YY"]
-  check: any
+  apiUrl='http://localhost:1323'
+  formatDate = [moment.ISO_8601, "DD/MM/YY"]
   datenow = moment(new Date(), 'DD/MM/YY')
+
+  checkFormats: any
   chFormat: boolean
   chBack: boolean
+  
+  addForm = this.formBuilder.group({
+    message: ['', Validators.required],
+    duedate: new FormControl('', Validators.required)
+  })
+
   constructor(
-    private datePipe: DatePipe,
-    private fb: FormBuilder,
-    private http:HttpClient
-    ) { }
-  checkFormat(inputDate:string) {
-    this.check = moment(inputDate, this.format, true).isValid()
-    if (this.check == true) {
+    private formBuilder: FormBuilder,
+    private http: HttpClient
+  ) { }
+  // Check Format in Dialog
+  checkFormat(inputDate: string) {
+    this.checkFormats = moment(inputDate, this.formatDate, true).isValid()
+    if (this.checkFormats == true) {
       this.chFormat = true
-      console.log(this.chFormat, "correct format", inputDate)
-    } else if (this.check == false) {
+    } else if (this.checkFormats == false) {
       this.chFormat = false
-      console.log(this.chFormat, "wrong format", inputDate)
     }
   }
+  // Check Back Date in Dialog box 
   checkBackDate(inputDate: string) {
-    console.log("Input Date : ", inputDate)
-    if (this.datenow.diff(moment(inputDate,'DD/MM/YY'), 'days') > 0) {
+    if (this.datenow.diff(moment(inputDate, 'DD/MM/YY'), 'days') > 0) {
       this.chBack = false
-      console.log(this.chBack, "Back Date",this.datenow.diff(moment(inputDate,'DD/MM/YY'), 'days'))
     } else {
       this.chBack = true
-      console.log(this.chBack, "Date Ok",this.datenow.diff(moment(inputDate,'DD/MM/YY'), 'days'))
     }
   }
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'my-auth-token'})
-  };
-  
-  onSubmit(addForm:Message) {
-    return this.http.post('http://localhost:1323/write',addForm,{ responseType: 'text'})
-    .subscribe(),location.reload();
-  }
-  
-  checkSubmit(){
-    if(this.chFormat===true && this.chBack===true){
+  // Check Validator in Dialog Form, Must correct format and not back date will be return 'true'
+  checkSubmit() {
+    if (this.chFormat === true && this.chBack === true) {
       return true
     }
     return false
+  }
+  // Call API POST
+  onSubmit(dataForm: Message) {
+    return this.http.post(this.apiUrl+'/write', dataForm, { responseType: 'text' })
+      .subscribe(),
+      location.reload();
   }
 }
