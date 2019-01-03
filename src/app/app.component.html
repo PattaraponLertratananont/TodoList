@@ -13,13 +13,13 @@
     <div class="row mx-auto" id="box-mid">
       <div class="col-md-2">
       </div>
-      <div class="col-md-8" id="show-message" style="padding-top:1%; padding-left: 2%; padding-right: 2%;">
-        <div id="box-message" *ngFor="let text of texts" style="word-wrap:break-word;">
+      <div class="col-md-8" id="show-message">
+        <div id="box-message" *ngFor="let text of texts">
           <div [ngClass]="{'my-class': checkDate(text.duedate)}">
-            <span id="message">Message : {{text.message}}</span>
+            <span id="message"><b>Message</b> : {{text.message}}</span>
           </div>
           <div>
-            <span id="date">Due Date : {{text.duedate}}</span>
+            <span id="date"><b>Due Date</b> : {{text.duedate}}</span>
           </div>
           <span>-----------------------</span>
         </div>
