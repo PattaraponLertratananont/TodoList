@@ -23,7 +23,11 @@
 
 <h1 mat-dialog-title>Add To Do List</h1>
 <mat-dialog-content>
+<<<<<<< HEAD
   <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+=======
+  <form [formGroup]="addForm" >
+>>>>>>> refs/remotes/origin/master
     {{ message }}
     <div>
       <label>
@@ -36,9 +40,17 @@
         Due Date
       </label>
     </div>
+<<<<<<< HEAD
     <input type="text" formControlName="date" name="date" id="date" #duedate (keyup.enter)="checkFormat(duedate.value)"(keyup.enter)="checkBackDate(duedate.value)" required>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button [mat-dialog-close]="true" type="submit" [disabled]="addForm.invalid">Save</button>
+=======
+    <input type="text" formControlName="duedate" name="date" id="date" #duedate (keyup)="checkFormat(duedate.value)"(keyup)="checkBackDate(duedate.value)" required>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button [mat-dialog-close]="true" type="submit" [disabled]="addForm.invalid || checkSubmit()==false" (click)="onSubmit()">Save</button>
+>>>>>>> refs/remotes/origin/master
 </mat-dialog-actions>

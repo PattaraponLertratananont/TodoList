@@ -3,6 +3,12 @@ import { MatDialog } from '@angular/material';
 import * as moment from 'moment'
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+<<<<<<< HEAD
+=======
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Message } from '../message'
+import { Observable } from 'rxjs';
+>>>>>>> refs/remotes/origin/master
 
 @Component({
   selector: 'app-dialog',
@@ -28,7 +34,11 @@ export class DialogContent {
 
   addForm = this.fb.group({
     message : ['',Validators.required],
+<<<<<<< HEAD
     date : new FormControl('',Validators.required)
+=======
+    duedate : new FormControl('',Validators.required)
+>>>>>>> refs/remotes/origin/master
   })
   date = new FormControl('');
   format = [moment.ISO_8601, "DD/MM/YY"]
@@ -38,7 +48,12 @@ export class DialogContent {
   chBack: boolean
   constructor(
     private datePipe: DatePipe,
+<<<<<<< HEAD
     private fb: FormBuilder
+=======
+    private fb: FormBuilder,
+    private http:HttpClient
+>>>>>>> refs/remotes/origin/master
     ) { }
   checkFormat(inputDate:string) {
     this.check = moment(inputDate, this.format, true).isValid()
@@ -58,7 +73,24 @@ export class DialogContent {
     } else {
       this.chBack = true
       console.log(this.chBack, "Date Ok",this.datenow.diff(moment(inputDate,'DD/MM/YY'), 'days'))
+<<<<<<< HEAD
+=======
     }
+  }
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+  
+  onSubmit() {
+    // return this.http.post('http://localhost:1323/write',JSON.stringify(addForm),this.httpOptions),console.log("PASS")
+    return this.http.post('http://localhost:1323/write',this.addForm.value,this.httpOptions),console.log(this.addForm.value)
+  }
+  checkSubmit(){
+    if(this.chFormat===true && this.chBack===true){
+      return true
+>>>>>>> refs/remotes/origin/master
+    }
+    return false
   }
   onSubmit() {
     // TODO: Use EventEmitter with form value
