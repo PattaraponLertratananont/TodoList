@@ -54,4 +54,7 @@ export class DialogContent {
       console.log(this.chBack,"Date Ok")
     }
   }
+  chForm(){
+    
+  }
 }
