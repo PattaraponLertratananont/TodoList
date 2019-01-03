@@ -11,5 +11,6 @@
     border: 1px solid black;
 }
 .my-class{
-    background:red;    
+    background:red;
+    color: white; 
 }
