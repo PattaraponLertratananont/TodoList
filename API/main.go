@@ -18,7 +18,7 @@ type TodoList struct {
 	Duedate string `json:"duedate"`
 }
 
-//* Default fuction API
+//! Default fuction API
 func hello(c echo.Context) error {
 	return c.String(http.StatusOK, "Hello, World!")
 }
@@ -70,7 +70,10 @@ func Postdata(c echo.Context) error {
 
 func Getdata(c echo.Context) error {
 	//! Openfile message.txt ที่เก็บข้อมูลต่างๆ ไว้
-	fileHandle, _ := os.Open("message.txt")
+	fileHandle, err := os.Open("message.txt")
+	if err != nil {
+		log.Fatalln(err)
+	}
 	defer fileHandle.Close()
 
 	//! Scanของข้างใน
@@ -80,7 +83,7 @@ func Getdata(c echo.Context) error {
 	for fileScanner.Scan() {
 		txt := fileScanner.Text()
 		data = append(data, txt)
-		fmt.Println("data : " + txt)
+		log.Fatalln("data : " + txt)
 
 	}
 	//! Unfurl to pure string from slice []string
@@ -92,5 +95,6 @@ func Getdata(c echo.Context) error {
 	//! "[" and "]" are making data to correct json.format
 	json.Unmarshal([]byte("["+bytedata+"]"), &result)
 
+	//! Return this if it's work!!
 	return c.JSON(http.StatusOK, result)
 }
