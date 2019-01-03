@@ -18,7 +18,7 @@ type TodoList struct {
 	Duedate string `json:"duedate"`
 }
 
-// Handler
+//* Default fuction API
 func hello(c echo.Context) error {
 	return c.String(http.StatusOK, "Hello, World!")
 }
@@ -34,7 +34,7 @@ func main() {
 	// Routes
 	e.GET("/", hello)
 	e.GET("/read", Getdata)
-	e.POST("/write", PostTest)
+	e.POST("/write", Postdata)
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},
@@ -45,7 +45,7 @@ func main() {
 }
 
 //! 2 Methods
-func PostTest(c echo.Context) error {
+func Postdata(c echo.Context) error {
 	//! Write file
 	var message TodoList
 	err := c.Bind(&message)
