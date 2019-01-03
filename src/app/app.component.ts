@@ -9,26 +9,25 @@ import { DatePipe } from '@angular/common'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  
-  title = 'Note';
+
   texts:Message[]=[]
   check=false
   date = new Date()
   datenow = this.datePipe.transform(this.date,'dd/MM/yy')
+
   constructor(
     private config:ConfigService,
     private datePipe:DatePipe,
     ){}
   ngOnInit(){
     this.showText()
-    console.log(this.datenow)
   }
   showText(){
     this.config.getText()
     .subscribe(data => this.texts=data)
   }
-  checkDate(param:any){
-    if(this.datenow===param){
+  checkDate(inputDate:any){
+    if(this.datenow===inputDate){
       return true;
     }
     return false;
