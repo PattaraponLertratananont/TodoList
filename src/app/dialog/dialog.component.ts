@@ -64,6 +64,9 @@ export class DialogContent {
       console.log(this.chBack, "Date Ok",this.datenow.diff(moment(inputDate,'DD/MM/YY'), 'days'))
     }
   }
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'my-auth-token'})
+  };
   
   onSubmit(addForm:Message) {
     return this.http.post('http://localhost:1323/write',addForm,{ responseType: 'text'})
