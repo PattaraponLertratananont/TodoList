@@ -23,9 +23,8 @@ func hello(c echo.Context) error {
 	return c.String(http.StatusOK, "Hello, World!")
 }
 
-// Echo instance
 func main() {
-
+	// Echo instance
 	e := echo.New()
 
 	// Middleware
@@ -45,13 +44,14 @@ func main() {
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
-//Method
+//! 2 Methods
 func PostTest(c echo.Context) error {
-	//write
+	//! Write file
 	var message TodoList
 	err := c.Bind(&message)
 	strmsg, err := json.Marshal(message)
-	// If the file doesn't exist, create it, or append to the file
+
+	//! If the file doesn't exist, create it, or append to the file
 	file, err := os.OpenFile("message.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, os.ModeAppend)
 	if err != nil {
 		log.Fatal(err)
@@ -90,7 +90,7 @@ func Getdata(c echo.Context) error {
 
 	//! Put result to TodoList struct
 	result := []TodoList{}
-	//* "[" and "]" are making data to json.format
+	//! "[" and "]" are making data to correct json.format
 	json.Unmarshal([]byte("["+bytedata+"]"), &result)
 
 	return c.JSON(http.StatusOK, result)
