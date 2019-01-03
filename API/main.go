@@ -59,40 +59,46 @@ func PostTest(c echo.Context) error {
 	err := c.Bind(&message)
 	strmsg, err := json.Marshal(message)
 	// If the file doesn't exist, create it, or append to the file
-	f, err := os.OpenFile("message.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, os.ModeAppend)
+	file, err := os.OpenFile("message.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, os.ModeAppend)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if _, err := f.Write([]byte(strmsg)); err != nil {
+	if _, err := file.Write([]byte(strmsg)); err != nil {
 		log.Fatal(err)
 	}
-	if _, err := f.Write([]byte("\n")); err != nil {
+	if _, err := file.Write([]byte("\n")); err != nil {
 		log.Fatal(err)
 	}
-	if err := f.Close(); err != nil {
+	if err := file.Close(); err != nil {
 		log.Fatal(err)
 	}
 	return c.String(http.StatusOK, "We got your list.")
 }
 
 func Getdata(c echo.Context) error {
+	//! Openfile message.txt ที่เก็บข้อมูลต่างๆ ไว้
 	fileHandle, _ := os.Open("message.txt")
 	defer fileHandle.Close()
+
+	//! Scanของข้างใน
 	fileScanner := bufio.NewScanner(fileHandle)
 	var data []string
+	//! จับของยัดใส่slice data string
 	for fileScanner.Scan() {
 		txt := fileScanner.Text()
 		data = append(data, txt)
 		fmt.Println("data : " + txt)
 
 	}
-
-	bdata := strings.Join(data, ",")
+	//! Unfurl to pure string from slice []string
+	bytedata := strings.Join(data, ",")
 	//datasJson, _ := json.Marshal(data)
-	fmt.Println("data 2: " + bdata)
+	fmt.Println("data 2: " + bytedata)
 
+	//! Put result to TodoList struct
 	result := []TodoList{}
-	json.Unmarshal([]byte("["+bdata+"]"), &result)
+	//* "[" and "]" are making data to json.format
+	json.Unmarshal([]byte("["+bytedata+"]"), &result)
 
 	return c.JSON(http.StatusOK, result)
 }
