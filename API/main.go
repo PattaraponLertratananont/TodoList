@@ -85,7 +85,6 @@ func Getdata(c echo.Context) error {
 	}
 	//! Unfurl to pure string from slice []string
 	bytedata := strings.Join(data, ",")
-	//datasJson, _ := json.Marshal(data)
 	fmt.Println("data 2: " + bytedata)
 
 	//! Put result to TodoList struct
