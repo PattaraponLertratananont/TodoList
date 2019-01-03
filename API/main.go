@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -84,11 +83,9 @@ func Getdata(c echo.Context) error {
 	for fileScanner.Scan() {
 		txt := fileScanner.Text()
 		dataslice = append(dataslice, txt)
-		log.Fatalln("Raw data: " + txt)
 	}
 	//! Unfurl to pure string from slice []string
 	bytedata := strings.Join(dataslice, ",")
-	fmt.Println("data ready: " + bytedata)
 
 	//! Put result to TodoList struct
 	result := []TodoList{}
