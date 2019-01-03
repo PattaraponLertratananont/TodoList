@@ -59,14 +59,14 @@ func PostTest(c echo.Context) error {
 	err := c.Bind(&message)
 	strmsg, err := json.Marshal(message)
 	// If the file doesn't exist, create it, or append to the file
-	f, err := os.OpenFile("message.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, os.ModeAppend)
+	file, err := os.OpenFile("message.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, os.ModeAppend)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if _, err := f.Write([]byte(strmsg)); err != nil {
+	if _, err := file.Write([]byte(strmsg)); err != nil {
 		log.Fatal(err)
 	}
-	if _, err := f.Write([]byte("\n")); err != nil {
+	if _, err := file.Write([]byte("\n")); err != nil {
 		log.Fatal(err)
 	}
 	if err := file.Close(); err != nil {
