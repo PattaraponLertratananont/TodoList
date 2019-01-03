@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Add To Do List</h2>
+<!-- <h2 mat-dialog-title>Add To Do List</h2>
 <mat-dialog-content class="mat-typography">
   <div class="message">
     <div>
@@ -19,8 +19,8 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button [mat-dialog-close]="true" cdkFocusInitial="false" >Save</button>
-</mat-dialog-actions>
-<!-- 
+</mat-dialog-actions> -->
+
 <h1 mat-dialog-title>Add To Do List</h1>
 <mat-dialog-content>
   <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
@@ -36,9 +36,9 @@
         Due Date
       </label>
     </div>
-    <input type="text" formControlName="date" name="date" id="date" (keyup.enter)="checkFormat() || checkBackDate()" required>
+    <input type="text" formControlName="date" name="date" id="date" #duedate (keyup.enter)="checkFormat(duedate.value)"(keyup.enter)="checkBackDate(duedate.value)" required>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button [mat-dialog-close]="true" type="submit" [disabled]="addForm.invalid">Save</button>
-</mat-dialog-actions> -->
+</mat-dialog-actions>

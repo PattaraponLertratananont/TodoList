@@ -27,8 +27,8 @@ export class DialogComponent {
 export class DialogContent {
 
   addForm = this.fb.group({
-    'message': ['',Validators.required],
-    'date': ['',Validators.required]
+    message : ['',Validators.required],
+    date : new FormControl('',Validators.required)
   })
   date = new FormControl('');
   format = [moment.ISO_8601, "DD/MM/YY"]
@@ -40,14 +40,14 @@ export class DialogContent {
     private datePipe: DatePipe,
     private fb: FormBuilder
     ) { }
-  checkFormat() {
-    this.check = moment(this.date.value, this.format, true).isValid()
+  checkFormat(inputDate:string) {
+    this.check = moment(inputDate, this.format, true).isValid()
     if (this.check == true) {
       this.chFormat = true
-      console.log(this.chFormat, "correct format")
+      console.log(this.chFormat, "correct format", inputDate)
     } else if (this.check == false) {
       this.chFormat = false
-      console.log(this.chFormat, "wrong format")
+      console.log(this.chFormat, "wrong format", inputDate)
     }
   }
   checkBackDate(inputDate: string) {
