@@ -55,7 +55,7 @@ func main() {
 //Method
 func PostTest(c echo.Context) error {
 	//write
-	message := `{"Message": "Helsdsdlo","Duedate": "01/01/19"}` + "\n"
+	message := `{"message": "Helsdsdlo","duedate": "01/01/19"}` + "\n"
 	// If the file doesn't exist, create it, or append to the file
 	f, err := os.OpenFile("message.txt", os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
