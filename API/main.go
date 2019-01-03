@@ -55,13 +55,18 @@ func main() {
 //Method
 func PostTest(c echo.Context) error {
 	//write
-	message := `{"message": "Helsdsdlo","duedate": "01/01/19"}` + "\n"
+	var message TodoList
+	err := c.Bind(&message)
+	strmsg, err := json.Marshal(message)
 	// If the file doesn't exist, create it, or append to the file
-	f, err := os.OpenFile("message.txt", os.O_APPEND|os.O_WRONLY, 0644)
+	f, err := os.OpenFile("message.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, os.ModeAppend)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if _, err := f.Write([]byte(message)); err != nil {
+	if _, err := f.Write([]byte(strmsg)); err != nil {
+		log.Fatal(err)
+	}
+	if _, err := f.Write([]byte("\n")); err != nil {
 		log.Fatal(err)
 	}
 	if err := f.Close(); err != nil {
