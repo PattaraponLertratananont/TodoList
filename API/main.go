@@ -17,13 +17,6 @@ type TodoList struct {
 	Message string `json:"message"`
 	Duedate string `json:"duedate"`
 }
-type ListDb struct {
-	Lists []TodoList
-}
-type List struct {
-	Duedate string
-	Message string
-}
 
 // Handler
 func hello(c echo.Context) error {

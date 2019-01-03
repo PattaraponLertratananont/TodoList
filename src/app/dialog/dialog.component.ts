@@ -64,14 +64,12 @@ export class DialogContent {
       console.log(this.chBack, "Date Ok",this.datenow.diff(moment(inputDate,'DD/MM/YY'), 'days'))
     }
   }
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
   
-  onSubmit() {
-    // return this.http.post('http://localhost:1323/write',JSON.stringify(addForm),this.httpOptions),console.log("PASS")
-    return this.http.post('http://localhost:1323/write',this.addForm.value,this.httpOptions),console.log(this.addForm.value)
+  onSubmit(addForm:Message) {
+    return this.http.post('http://localhost:1323/write',addForm,{ responseType: 'text'})
+    .subscribe(),location.reload();
   }
+  
   checkSubmit(){
     if(this.chFormat===true && this.chBack===true){
       return true

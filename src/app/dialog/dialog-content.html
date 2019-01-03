@@ -40,5 +40,5 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button [mat-dialog-close]="true" type="submit" [disabled]="addForm.invalid || checkSubmit()==false" (click)="onSubmit()">Save</button>
+  <button [mat-dialog-close]="true" type="submit" [disabled]="addForm.invalid || checkSubmit()==false" (click)="onSubmit(addForm.value)">Save</button>
 </mat-dialog-actions>
