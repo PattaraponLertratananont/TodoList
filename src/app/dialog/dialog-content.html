@@ -10,7 +10,7 @@
       <label>Due Date</label>
     </div>
     <input type="text" formControlName="duedate" name="dateInput" id="dateInput" #duedate (keyup)="checkFormat(duedate.value)"
-      (keyup)="checkBackDate(duedate.value)" required>
+      (keyup)="checkBackDate(duedate.value)" placeholder="dd/mm/yy" required>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
